@@ -15,18 +15,20 @@ public:
             return NULL;
         }
         vector <int> arr;
-        while (head != nullptr) {
-        arr.push_back(head->val);
-        head = head->next;
+        ListNode* temp = head;
+        while (temp != NULL) {
+        arr.push_back(temp->val);
+        temp = temp->next;
         }
         sort(arr.begin(), arr.end());
-        ListNode *dummy = new ListNode(-1);
-        ListNode *curr = dummy;
-
-        for (int i = 0; i < arr.size(); i++) {
-            curr->next = new ListNode(arr[i]);
-            curr = curr->next;
+        temp = head;
+        int i = 0;
+        while(temp != NULL){
+            temp -> val = arr[i];
+            i++;
+            temp = temp -> next;
         }
-        return dummy->next;
+
+        return head;
     }
 };
