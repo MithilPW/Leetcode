@@ -27,17 +27,16 @@ public:
         }
 
         if(candidates.empty()) return 0;
-
-        int answer = INT_MAX;
-        for(int lang = 1;lang <= n;lang++){
-            int know = 0;
-
-            for(int user : candidates){
-                if(langset[user].count(lang)) know ++;
+        vector<int> freq(n + 1, 0);
+        for (int user : candidates) {
+            for (int lang : langset[user]) {
+                freq[lang]++;
             }
-            int toTeach = candidates.size() - know;
-            answer = min(answer,toTeach);
         }
-        return answer;
+        int maxFreq = 0;
+        for (int lang = 1; lang <= n; lang++) {
+            maxFreq = max(maxFreq, freq[lang]);
+        }
+        return candidates.size() - maxFreq;
     }
 };
