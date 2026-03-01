@@ -52,13 +52,41 @@ public:
 
         return dp[0];
     }
+    int solveUsingSpace(vector<int> &nums){
+        int n = nums.size();
+        //vector <int> dp(n+1,-1);
+
+        int next1 = 0;
+        int next2 = 0;
+        int curr;
+
+        //reverse the flow loop copy paste
+
+        for(int i = n-1;i>=0;i--){
+            int temp = 0;
+            if(i+2 <= n){
+                 temp = next2;
+            }
+            
+            int include = nums[i] + temp;
+            int exclude = 0 + next1;
+            curr = max(include,exclude);
+
+            //shifting
+            next2 = next1;
+            next1 = curr;
+
+        }
+
+        return curr;
+    }
 
     int rob(vector<int>& nums) {
         int index = 0;
         int n = nums.size();
         // int ans = solveUsingRec(nums,index);
         vector <int> dp(n+1,-1);
-        int ans = solveUsingTabulation(nums);
+        int ans = solveUsingSpace(nums);
         return ans;
     }
 };
