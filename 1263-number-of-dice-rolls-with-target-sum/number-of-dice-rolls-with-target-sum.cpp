@@ -25,12 +25,33 @@ public:
         }
         return ans;
     }
+    int solveUsingTabulation(int n, int k, int target){
+        int m = target;
+        vector<vector<int>> dp(n+1,vector<int>(m+1,0));
+
+        dp[0][0] = 1;
+
+        for(int dice = 1; dice <=n;dice++){
+            for(int t = 1 ; t<=target;t++){
+                long long int ans = 0;
+                for(int val=1;val <= k;val++){
+                    long long int temp = 0;
+                    if(t-val >= 0){
+                        temp = dp[dice-1][t-val] % mod;
+                    }
+                    ans = (ans%mod + temp)% mod;
+                }
+                dp[dice][t] = ans;
+            }
+        }
+        return dp[n][target];
+    }
     int numRollsToTarget(int n, int k, int target) {
 
-       int m = target;
+        //int m = target;
 
-       vector<vector<int>> dp(n+1,vector<int>(m+1,-1));
-        int ans = solveusingRec(n,k,target,dp);
+        //vector<vector<int>> dp(n+1,vector<int>(m+1,-1));
+        int ans = solveUsingTabulation(n,k,target);
        return ans;
     }
 };
