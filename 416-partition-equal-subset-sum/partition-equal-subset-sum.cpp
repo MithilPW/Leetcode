@@ -35,18 +35,38 @@ public:
         dp[i][target] = inc || exc;
         return dp[i][target];
     }
+    bool solveUsingTabulation(vector<int> &nums,int target){
+        int n = nums.size();
+        vector <vector<int>> dp(n+1,vector<int> (target+1, 0));
 
+        for(int i = 0; i< nums.size() ;i++){
+            dp[i][0] = 1;
+        }
+
+        for(int index = n-1 ; index>=0;index--){
+            for (int t = 1 ; t <=target;t++){
+                bool inc = 0;
+                if(t - nums[index] >= 0){
+                    inc = dp[index+1][t-nums[index]];
+                }
+                bool exc = dp[index+1][t];
+
+                dp[index][t] = inc || exc;
+            }
+        }
+        return dp[0][target];
+
+    }
     bool canPartition(vector<int>& nums) {
         int sum = accumulate(nums.begin(),nums.end(),0);
         if(sum % 2 != 0 ){
             return false;
         }
 
-        int target = sum >> 1;
+        int target = sum / 2;
 
         int n = nums.size();
 
-        vector <vector<int>> dp(n+1,vector<int> (target+1, -1));
-        return solveusingMemo(nums,target,0,dp);
+        return solveUsingTabulation(nums,target);
     }
 };
