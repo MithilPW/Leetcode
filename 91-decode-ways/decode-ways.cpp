@@ -47,9 +47,36 @@ public:
         }
         return ways;
     }
+int solveREusingTabulation(string &s, int i) {
+    int n = s.size();
+    vector<int> dp(n + 1, 0);
+
+    dp[n] = 1; // base case
+
+    for(int i = n - 1; i >= 0; i--) {
+
+        if(s[i] == '0') {
+            dp[i] = 0;
+            continue;
+        }
+
+        int ways = dp[i + 1];  // take single digit
+
+        if(i + 1 < n) {
+            int num = (s[i] - '0') * 10 + (s[i + 1] - '0');
+            if(num >= 10 && num <= 26) {
+                ways += dp[i + 2];  // take two digits
+            }
+        }
+
+        dp[i] = ways;
+    }
+
+    return dp[0];
+}
     int numDecodings(string s) {
-        int n = s.size();
-        vector<int> dp(n+1,-1);
-        return solveREusingMemoization(s,0,dp);
+
+
+        return solveREusingTabulation(s,0);
     }
 };
