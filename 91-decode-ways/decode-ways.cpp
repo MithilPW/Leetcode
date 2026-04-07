@@ -47,7 +47,7 @@ public:
         }
         return dp[i] = ways;
     }
-    int solveREusingMemoization(string &s){
+    int solveREusingTabulation(string &s){
         //i will reach the end of the string
         vector <int> dp(s.size() + 1,0);
         dp[s.size()] = 1;
@@ -68,9 +68,37 @@ public:
         return dp[0];
 
     }
+    int solveREusingSO(string &s){
+        //i will reach the end of the string
+        vector <int> dp(s.size() + 1,0);
+
+        int curr = 0;
+        int next1 = 1;
+        int next2 = 0;
+
+        for(int i = s.size()-1;i>=0;i--){
+
+        int ways = next1;
+
+        if(i + 1 < s.size()){
+            int n = (s[i] - '0') * 10 + (s[i+1] - '0');
+            if(n >= 10 && n <= 26){
+                ways += next2;
+                
+            }
+        }
+            curr = s[i] == '0' ? 0 : ways;
+
+            //shifting
+            next2 = next1;
+            next1 = curr;
+        }
+        return curr;
+
+    }
     int numDecodings(string s) {
 
 
-        return solveREusingMemoization(s);
+        return solveREusingSO(s);
     }
 };
