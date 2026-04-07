@@ -42,10 +42,10 @@ public:
             int n = (s[i] - '0') * 10 + (s[i+1] - '0');
             if(n >= 10 && n <= 26){
                 ways += solveREusingMemoization(s,i+2,dp);
-                dp[i] = ways;
+                
             }
         }
-        return ways;
+        return dp[i] = ways;
     }
 int solveREusingTabulation(string &s, int i) {
     int n = s.size();
