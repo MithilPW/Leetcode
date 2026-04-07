@@ -93,7 +93,7 @@ public:
             next2 = next1;
             next1 = curr;
         }
-        return curr;
+        return next1;
 
     }
     int numDecodings(string s) {
