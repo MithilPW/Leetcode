@@ -1,9 +1,11 @@
-# Write your MySQL query statement below
-select IFNULL(
-    (
+select IFNULL((
 select distinct salary 
+from
+(
+select salary ,
+Dense_rank() over  (order by salary DESC)  as rankkeked
 from employee
-order by salary desc
-LIMIT 1 OFFSET 1
-),NULL
-) as SecondHighestSalary
+) t
+where rankkeked  = 2
+),NULL) as SecondHighestSalary
+
