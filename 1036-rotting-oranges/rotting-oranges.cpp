@@ -63,7 +63,7 @@ public:
         //apne karliya h
         // ab i want to check k kya maine saare orange rotten kardiye?
 
-        int freshOrangeCount = 0;
+        // int freshOrangeCount = 0;
         for(int i = 0;i<n;i++){
             for(int j = 0; j<m;j++){
                 if(temp[i][j] == 1){
